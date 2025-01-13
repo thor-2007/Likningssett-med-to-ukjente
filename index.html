@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System of Equations Solver</title>
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        body{
+            background-color: rgb(81, 81, 81);
+        }
+        #title {
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 15px;
+            background-color: black;
+            color: white;
+            padding-bottom: 2.5%;
+            padding-top: 5%;
+        }
+        #form-container {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 22px;
+            color: white;
+            font-family: sans-serif;
+            text-shadow: 3px 0px 1px black;
+        }
+        label {
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        input {
+            margin: 10px;
+            font-size: 20px;
+        }
+        input:hover{
+            background-color: pink;
+            font-size: 20px;
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+        .knapp{
+            font-size: 20px;
+        }
+        .knapp:hover{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="title">
+        <h1>Dette er en kalkulator for å løse likningsett med to ukjente!</h1>
+        <p>Laget av Thor A. Å. (den 13.01.2025)</p>
+    </div>
+    <div id="form-container">
+        <label for="a">a:</label><input type="number" id="a" required>
+        <label for="b">b:</label><input type="number" id="b" required>
+        <label for="c">c:</label><input type="number" id="c" required><br>
+        
+        <p>Dette representerer den første likningen: <strong>a*x + b*y = c</strong></p>
+
+        <label for="d">d:</label><input type="number" id="d" required>
+        <label for="e">e:</label><input type="number" id="e" required>
+        <label for="f">f:</label><input type="number" id="f" required><br>
+
+        <p>Dette representerer den andre likningen: <strong>d*x + e*y = f</strong></p>
+
+        <button onclick="solveEquations()" class="knapp">Løs likningsettet</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function solveEquations() {
+            // Get values from input fields
+            let a = parseFloat(document.getElementById('a').value);
+            let b = parseFloat(document.getElementById('b').value);
+            let c = parseFloat(document.getElementById('c').value);
+            let d = parseFloat(document.getElementById('d').value);
+            let e = parseFloat(document.getElementById('e').value);
+            let f = parseFloat(document.getElementById('f').value);
+
+            // Solve the system using Cramer's rule
+            let denominator = a * e - b * d;
+            if (denominator === 0) {
+                document.getElementById('result').textContent = "Det er ingen løsning eller uendelig mange løsninger.";
+                return;
+            }
+
+            let x = (c * e - b * f) / denominator;
+            let y = (a * f - c * d) / denominator;
+
+            // Display the result
+            document.getElementById('result').textContent = `Løsningen er: x = ${x}, y = ${y}`;
+        }
+    </script>
+
+</body>
+</html>
